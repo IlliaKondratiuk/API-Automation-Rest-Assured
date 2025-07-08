@@ -30,7 +30,7 @@ public class AuthHelper {
                 .when()
                 .post(baseUrl + "/api/login");
 
-        response.then().statusCode(200);
+        response.then().statusCode(HttpStatus.SC_OK);
 
         return response.jsonPath().getString("token");
     }
