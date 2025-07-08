@@ -1,6 +1,7 @@
 package auth;
 
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 
 import java.util.ResourceBundle;
 
