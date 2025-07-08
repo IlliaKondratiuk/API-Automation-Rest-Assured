@@ -20,9 +20,9 @@ public class AuthHelper {
 
     private static String loginAndGetToken() {
 
-        String baseUrl = config.getString("baseUrl");
-        String email = config.getString("email");
-        String password = config.getString("password");
+        String baseUrl = config.getString("base.url");
+        String email = config.getString("user.email");
+        String password = config.getString("user.password");
 
         Response response = given()
                 .contentType("application/json")
