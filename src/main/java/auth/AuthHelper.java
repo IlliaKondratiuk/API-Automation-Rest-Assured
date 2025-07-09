@@ -29,7 +29,7 @@ public class AuthHelper {
                 .contentType("application/json")
                 .body(String.format("{\"email\":\"%s\", \"password\":\"%s\"}", email, password))
                 .when()
-                .post(baseUrl + "/api/login");
+                .post(baseUrl + "/users/login");
 
         response.then().statusCode(HttpStatus.SC_OK);
 
