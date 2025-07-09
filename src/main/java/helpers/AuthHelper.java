@@ -1,4 +1,4 @@
-package auth;
+package helpers;
 
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
