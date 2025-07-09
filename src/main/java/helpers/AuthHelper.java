@@ -11,6 +11,7 @@ public class AuthHelper {
 
     private static String token;
     private static final ResourceBundle config = ResourceBundle.getBundle("config");
+    private static final String baseUrl = config.getString("base.url");
 
     public static String generateToken() {
         if (token == null) {
@@ -20,8 +21,6 @@ public class AuthHelper {
     }
 
     private static String loginAndGetToken() {
-
-        String baseUrl = config.getString("base.url");
         String email = config.getString("user.email");
         String password = config.getString("user.password");
 
@@ -29,7 +28,7 @@ public class AuthHelper {
                 .contentType("application/json")
                 .body(String.format("{\"email\":\"%s\", \"password\":\"%s\"}", email, password))
                 .when()
-                .post(baseUrl + "/users/login");
+                .post(baseUrl + ApiEndpoints.LOGIN);
 
         response.then().statusCode(HttpStatus.SC_OK);
 
