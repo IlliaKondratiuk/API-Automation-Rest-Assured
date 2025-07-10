@@ -54,4 +54,22 @@ public class LoginTest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", equalTo(badRequestMessage));
     }
+
+    @Test
+    public void loginWithInvalidCredentialsReturns401() {
+        String token = AuthHelper.generateToken();
+
+        String invalidCredentialsMessage = userMessages.getString("login.incorrectcredentials");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(String.format("{\"email\":\"%s\", \"password\":\"%s\"}",
+                        InvalidTestData.INVALID_EMAIL, InvalidTestData.WRONG_PASSWORD))
+                .when()
+                .post(baseUrl + ApiEndpoints.LOGIN)
+                .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(invalidCredentialsMessage));
+    }
 }
