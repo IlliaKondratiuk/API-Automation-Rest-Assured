@@ -14,7 +14,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoginTest {
 
     ResourceBundle credentials = ResourceBundle.getBundle("config");
-    ResourceBundle messages = ResourceBundle.getBundle("messages.user_messages");
+    ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
+    ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
 
     String baseUrl = credentials.getString("base.url");
 
@@ -24,7 +25,7 @@ public class LoginTest {
 
         String email = credentials.getString("user.email");
         String password = credentials.getString("user.password");
-        String validMessage = messages.getString("login.success");
+        String validMessage = userMessages.getString("login.success");
 
         given()
                 .contentType(ContentType.JSON)
@@ -35,7 +36,22 @@ public class LoginTest {
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo(validMessage));
+    }
 
+    @Test
+    public void loginWithoutCredentialsReturns400() {
+        String token = AuthHelper.generateToken();
 
+        String badRequestMessage = commonMessages.getString("badrequest");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(String.format("{\"email\":\", \"password\":\"}"))
+                .when()
+                .post(baseUrl + ApiEndpoints.LOGIN)
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(badRequestMessage));
     }
 }
