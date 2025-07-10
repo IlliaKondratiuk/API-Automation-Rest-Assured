@@ -2,6 +2,7 @@ package users;
 
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
+import helpers.InvalidTestData;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
@@ -14,7 +15,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoginTest {
 
     ResourceBundle credentials = ResourceBundle.getBundle("config");
-    ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
     ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
 
     String baseUrl = credentials.getString("base.url");
@@ -42,17 +42,17 @@ public class LoginTest {
     public void loginWithoutCredentialsReturns400() {
         String token = AuthHelper.generateToken();
 
-        String badRequestMessage = commonMessages.getString("badrequest");
+        String noValidEmailMessage = userMessages.getString("login.novalidemail");
 
         given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token)
-                .body(String.format("{\"email\":\", \"password\":\"}"))
+                .body("{\"password\":\"" + InvalidTestData.WRONG_PASSWORD + "\"}")
                 .when()
                 .post(baseUrl + ApiEndpoints.LOGIN)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", equalTo(badRequestMessage));
+                .body("message", equalTo(noValidEmailMessage));
     }
 
     @Test
