@@ -31,7 +31,6 @@ public class AuthHelper {
                 .post(baseUrl + ApiEndpoints.LOGIN);
 
         response.then().statusCode(HttpStatus.SC_OK);
-
-        return response.jsonPath().getString("token");
+        return response.jsonPath().getString("data.token");
     }
 }
