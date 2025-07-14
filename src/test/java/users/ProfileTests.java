@@ -3,11 +3,9 @@ package users;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
-import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 import static io.restassured.RestAssured.given;
@@ -24,7 +22,7 @@ public class ProfileTests {
     public void getProfileReturnsSuccess() {
         String token = AuthHelper.generateToken();
 
-        String SuccessMessage = userMessages.getString("profile.successful");
+        String successMessage = userMessages.getString("profile.successful");
 
        given()
                 .contentType(ContentType.JSON)
@@ -33,7 +31,7 @@ public class ProfileTests {
                 .get(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(SuccessMessage));
+                .body("message", equalTo(successMessage));
     }
 
     @Test
