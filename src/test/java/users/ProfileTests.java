@@ -15,6 +15,7 @@ public class ProfileTests {
 
     ResourceBundle credentials = ResourceBundle.getBundle("config");
     ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
+    ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
 
     String baseUrl = credentials.getString("base.url");
 
@@ -76,7 +77,7 @@ public class ProfileTests {
     public void getProfileUnauthorizedReturns401() {
         String token = AuthHelper.generateToken();
 
-        String unauthorizedMessage = userMessages.getString("profile.get.unauthorized");
+        String unauthorizedMessage = commonMessages.getString("unauthorized");
 
         given()
                 .contentType(ContentType.JSON)
