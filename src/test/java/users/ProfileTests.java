@@ -24,7 +24,7 @@ public class ProfileTests {
     public void getProfileReturnsSuccess() {
         String token = AuthHelper.generateToken();
 
-        String getSuccessMessage = userMessages.getString("profile.successful");
+        String SuccessMessage = userMessages.getString("profile.successful");
 
        given()
                 .contentType(ContentType.JSON)
@@ -33,7 +33,7 @@ public class ProfileTests {
                 .get(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(getSuccessMessage));
+                .body("message", equalTo(SuccessMessage));
     }
 
     @Test
