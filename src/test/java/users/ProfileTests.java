@@ -88,4 +88,45 @@ public class ProfileTests {
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
                 .body("message", equalTo(unauthorizedMessage));
     }
+
+    @Test
+    public void patchProfileMissingNameReturns400() {
+        String token = AuthHelper.generateToken();
+
+        String phone = credentials.getString("user.phone");
+        String company = credentials.getString("user.company");
+
+        String patchMissingNameMessage = userMessages.getString("profile.patch.badrequest");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(String.format("{\"phone\":\"%s\", \"company\":\"%s\"}", phone, company))
+                .when()
+                .patch(baseUrl + ApiEndpoints.PROFILE)
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(patchMissingNameMessage));
+    }
+
+    @Test
+    public void patchProfileUnauthorizedReturns401() {
+        String token = AuthHelper.generateToken();
+
+        String name = credentials.getString("user.name");
+        String phone = credentials.getString("user.phone");
+        String company = credentials.getString("user.company");
+
+        String unauthorizedMessage = commonMessages.getString("unauthorized");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token + "0")
+                .body(String.format("{\"name\":\"%s\", \"phone\":\"%s\", \"company\":\"%s\"}", name, phone, company))
+                .when()
+                .patch(baseUrl + ApiEndpoints.PROFILE)
+                .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(unauthorizedMessage));
+    }
 }
