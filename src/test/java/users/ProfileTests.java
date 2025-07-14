@@ -56,4 +56,37 @@ public class ProfileTests {
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo(patchSuccessMessage));
     }
+
+    @Test
+    public void getProfileInvalidReturns400() {
+        String token = AuthHelper.generateToken();
+
+        String invalidMessage = userMessages.getString("profile.get.badrequest");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(" ") //making the request invalid
+                .when()
+                .get(baseUrl + ApiEndpoints.PROFILE)
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(invalidMessage));
+    }
+
+    @Test
+    public void getProfileUnauthorizedReturns401() {
+        String token = AuthHelper.generateToken();
+
+        String unauthorizedMessage = userMessages.getString("profile.get.unauthorized");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token + "0") //making the token invalid
+                .when()
+                .get(baseUrl + ApiEndpoints.PROFILE)
+                .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(unauthorizedMessage));
+    }
 }
