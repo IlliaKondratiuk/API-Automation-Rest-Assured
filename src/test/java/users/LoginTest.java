@@ -14,10 +14,11 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class LoginTest {
 
-    ResourceBundle credentials = ResourceBundle.getBundle("config");
-    ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
+    private static final ResourceBundle common = ResourceBundle.getBundle("common.common_info");
+    private static final ResourceBundle credentials = ResourceBundle.getBundle("user_info");
+    private static final ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
 
-    String baseUrl = credentials.getString("base.url");
+    String baseUrl = common.getString("base.url");
 
     @Test
     public void validLoginReturnsSuccess() {

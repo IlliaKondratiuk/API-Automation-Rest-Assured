@@ -13,11 +13,12 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ProfileTests {
 
-    ResourceBundle credentials = ResourceBundle.getBundle("config");
+    ResourceBundle common = ResourceBundle.getBundle("common.common_info");
+    ResourceBundle userInfo = ResourceBundle.getBundle("user_info");
     ResourceBundle userMessages = ResourceBundle.getBundle("messages.user_messages");
     ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
 
-    String baseUrl = credentials.getString("base.url");
+    String baseUrl = common.getString("base.url");
 
     @Test
     public void getProfileReturnsSuccess() {
@@ -39,9 +40,9 @@ public class ProfileTests {
     public void patchProfileReturnsSuccess() {
         String token = AuthHelper.generateToken();
 
-        String name = credentials.getString("user.name");
-        String phone = credentials.getString("user.phone");
-        String company = credentials.getString("user.company");
+        String name = userInfo.getString("user.name");
+        String phone = userInfo.getString("user.phone");
+        String company = userInfo.getString("user.company");
 
         String patchSuccessMessage = userMessages.getString("profile.patch");
 
@@ -93,8 +94,8 @@ public class ProfileTests {
     public void patchProfileMissingNameReturns400() {
         String token = AuthHelper.generateToken();
 
-        String phone = credentials.getString("user.phone");
-        String company = credentials.getString("user.company");
+        String phone = userInfo.getString("user.phone");
+        String company = userInfo.getString("user.company");
 
         String patchMissingNameMessage = userMessages.getString("profile.patch.badrequest");
 
@@ -113,9 +114,9 @@ public class ProfileTests {
     public void patchProfileUnauthorizedReturns401() {
         String token = AuthHelper.generateToken();
 
-        String name = credentials.getString("user.name");
-        String phone = credentials.getString("user.phone");
-        String company = credentials.getString("user.company");
+        String name = userInfo.getString("user.name");
+        String phone = userInfo.getString("user.phone");
+        String company = userInfo.getString("user.company");
 
         String unauthorizedMessage = commonMessages.getString("unauthorized");
 

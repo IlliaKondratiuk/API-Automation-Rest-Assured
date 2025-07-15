@@ -10,8 +10,10 @@ import static io.restassured.RestAssured.given;
 public class AuthHelper {
 
     private static String token;
-    private static final ResourceBundle config = ResourceBundle.getBundle("config");
-    private static final String baseUrl = config.getString("base.url");
+    private static final ResourceBundle common = ResourceBundle.getBundle("common.common_info");
+    private static final ResourceBundle userInfo = ResourceBundle.getBundle("user_info");
+
+    private static final String baseUrl = common.getString("base.url");
 
     public static String generateToken() {
         if (token == null) {
@@ -21,8 +23,8 @@ public class AuthHelper {
     }
 
     private static String loginAndGetToken() {
-        String email = config.getString("user.email");
-        String password = config.getString("user.password");
+        String email = userInfo.getString("user.email");
+        String password = userInfo.getString("user.password");
 
         Response response = given()
                 .contentType("application/json")
