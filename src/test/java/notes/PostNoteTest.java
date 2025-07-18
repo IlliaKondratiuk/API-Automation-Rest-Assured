@@ -20,7 +20,7 @@ public class PostNoteTest {
     String baseUrl = common.getString("base.url");
 
     @Test
-    public void validPatchNoteReturns200() {
+    public void validPostNoteReturns200() {
         String token = AuthHelper.generateToken();
 
         String title = info.getString("title");
