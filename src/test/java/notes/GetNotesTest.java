@@ -47,9 +47,9 @@ public class GetNotesTest {
         GetNotesResponse response = given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
-                .when()
+        .when()
                 .get(baseUrl + ApiEndpoints.NOTES)
-                .then()
+        .then()
                 .extract()
                 .as(GetNotesResponse.class);
 
@@ -64,5 +64,56 @@ public class GetNotesTest {
             Assert.assertNotNull(note.getUpdated_at());
             Assert.assertEquals(note.getUser_id(), info.getString("expected_user_id"));
         }
+    }
+
+    @Test
+    public void getNoteByIdReturns200() {
+        String token = AuthHelper.generateToken();
+
+        String expectedMessage = notesMessages.getString("note.get.success");
+        int noteId = 1;
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(String.format("{\"id\":\"%s\"}", noteId))
+        .when()
+                .get(baseUrl + ApiEndpoints.NOTES)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("message", equalTo(expectedMessage));
+    }
+
+    @Test
+    public void invalidGetNoteByIdReturns400() {
+        String token = AuthHelper.generateToken();
+
+        String expectedMessage = commonMessages.getString("badrequest.emptybody");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(" ")
+        .when()
+                .get(baseUrl + ApiEndpoints.NOTES)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(expectedMessage));
+    }
+
+    @Test
+    public void getNotesUnauthorizedReturns401() {
+        String token = AuthHelper.generateToken();
+
+        String expectedMessage = commonMessages.getString("unauthorized");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token + "1")
+        .when()
+                .get(baseUrl + ApiEndpoints.NOTES)
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(expectedMessage));
     }
 }
