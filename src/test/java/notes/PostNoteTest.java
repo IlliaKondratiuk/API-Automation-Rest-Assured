@@ -54,9 +54,9 @@ public class PostNoteTest {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
                 .body(String.format("{\"title\":\"%s\", \"description\":\"%s\"}", title, description))
-                .when()
+        .when()
                 .post(baseUrl + ApiEndpoints.NOTES)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", equalTo(expectedMessage));
     }
@@ -75,9 +75,9 @@ public class PostNoteTest {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
                 .body(String.format("{\"title\":\"%s\", \"description\":\"%s\", \"category\":\"%s\"}", title, description, category))
-                .when()
+        .when()
                 .post(baseUrl + ApiEndpoints.NOTES)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
                 .body("message", equalTo(expectedMessage));
     }

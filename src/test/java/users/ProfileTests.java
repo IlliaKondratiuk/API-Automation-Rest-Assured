@@ -26,12 +26,12 @@ public class ProfileTests {
 
         String expectedMessage = userMessages.getString("profile.successful");
 
-       given()
+        given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
-                .when()
+        .when()
                 .get(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo(expectedMessage));
     }
@@ -50,9 +50,9 @@ public class ProfileTests {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
                 .body(String.format("{\"name\":\"%s\", \"phone\":\"%s\", \"company\":\"%s\"}", name, phone, company))
-                .when()
+        .when()
                 .patch(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo(expectedMessage));
     }
@@ -67,9 +67,9 @@ public class ProfileTests {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
                 .body(" ") //making the request invalid
-                .when()
+        .when()
                 .get(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", equalTo(expectedMessage));
     }
@@ -83,9 +83,9 @@ public class ProfileTests {
         given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token + "0") //making the token invalid
-                .when()
+        .when()
                 .get(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
                 .body("message", equalTo(expectedMessage));
     }
@@ -103,9 +103,9 @@ public class ProfileTests {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
                 .body(String.format("{\"phone\":\"%s\", \"company\":\"%s\"}", phone, company))
-                .when()
+        .when()
                 .patch(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", equalTo(expectedMessage));
     }
@@ -124,9 +124,9 @@ public class ProfileTests {
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token + "0")
                 .body(String.format("{\"name\":\"%s\", \"phone\":\"%s\", \"company\":\"%s\"}", name, phone, company))
-                .when()
+        .when()
                 .patch(baseUrl + ApiEndpoints.PROFILE)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
                 .body("message", equalTo(expectedMessage));
     }
