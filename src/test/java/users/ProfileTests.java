@@ -61,7 +61,7 @@ public class ProfileTests {
     public void getProfileInvalidReturns400() {
         String token = AuthHelper.generateToken();
 
-        String expectedMessage = userMessages.getString("profile.get.badrequest");
+        String expectedMessage = commonMessages.getString("badrequest.emptybody");
 
         given()
                 .contentType(ContentType.JSON)
