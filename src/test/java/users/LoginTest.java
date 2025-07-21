@@ -26,7 +26,7 @@ public class LoginTest {
 
         String email = credentials.getString("user.email");
         String password = credentials.getString("user.password");
-        String validMessage = userMessages.getString("login.success");
+        String expectedMessage = userMessages.getString("login.success");
 
         given()
                 .contentType(ContentType.JSON)
@@ -36,14 +36,14 @@ public class LoginTest {
                 .post(baseUrl + ApiEndpoints.LOGIN)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(validMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
     public void loginWithoutCredentialsReturns400() {
         String token = AuthHelper.generateToken();
 
-        String noValidEmailMessage = userMessages.getString("login.novalidemail");
+        String expectedMessage = userMessages.getString("login.novalidemail");
 
         given()
                 .contentType(ContentType.JSON)
@@ -53,7 +53,7 @@ public class LoginTest {
                 .post(baseUrl + ApiEndpoints.LOGIN)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", equalTo(noValidEmailMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test

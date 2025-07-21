@@ -28,7 +28,7 @@ public class GetNotesTest {
     public void getNotesReturns200() {
         String token = AuthHelper.generateToken();
 
-        String successMessage = notesMessages.getString("note.get.success");
+        String expectedMessage = notesMessages.getString("note.get.success");
 
         given()
                 .contentType(ContentType.JSON)
@@ -37,7 +37,7 @@ public class GetNotesTest {
                 .get(baseUrl + ApiEndpoints.NOTES)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(successMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test

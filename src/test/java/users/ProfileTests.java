@@ -24,7 +24,7 @@ public class ProfileTests {
     public void getProfileReturnsSuccess() {
         String token = AuthHelper.generateToken();
 
-        String successMessage = userMessages.getString("profile.successful");
+        String expectedMessage = userMessages.getString("profile.successful");
 
        given()
                 .contentType(ContentType.JSON)
@@ -33,7 +33,7 @@ public class ProfileTests {
                 .get(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(successMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ProfileTests {
         String phone = userInfo.getString("user.phone");
         String company = userInfo.getString("user.company");
 
-        String patchSuccessMessage = userMessages.getString("profile.patch");
+        String expectedMessage = userMessages.getString("profile.patch");
 
         given()
                 .contentType(ContentType.JSON)
@@ -54,14 +54,14 @@ public class ProfileTests {
                 .patch(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(patchSuccessMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
     public void getProfileInvalidReturns400() {
         String token = AuthHelper.generateToken();
 
-        String invalidMessage = userMessages.getString("profile.get.badrequest");
+        String expectedMessage = userMessages.getString("profile.get.badrequest");
 
         given()
                 .contentType(ContentType.JSON)
@@ -71,14 +71,14 @@ public class ProfileTests {
                 .get(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", equalTo(invalidMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
     public void getProfileUnauthorizedReturns401() {
         String token = AuthHelper.generateToken();
 
-        String unauthorizedMessage = commonMessages.getString("unauthorized");
+        String expectedMessage = commonMessages.getString("unauthorized");
 
         given()
                 .contentType(ContentType.JSON)
@@ -87,7 +87,7 @@ public class ProfileTests {
                 .get(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
-                .body("message", equalTo(unauthorizedMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ProfileTests {
         String phone = userInfo.getString("user.phone");
         String company = userInfo.getString("user.company");
 
-        String patchMissingNameMessage = userMessages.getString("profile.patch.badrequest");
+        String expectedMessage = userMessages.getString("profile.patch.badrequest");
 
         given()
                 .contentType(ContentType.JSON)
@@ -107,7 +107,7 @@ public class ProfileTests {
                 .patch(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", equalTo(patchMissingNameMessage));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ProfileTests {
         String phone = userInfo.getString("user.phone");
         String company = userInfo.getString("user.company");
 
-        String unauthorizedMessage = commonMessages.getString("unauthorized");
+        String expectedMessage = commonMessages.getString("unauthorized");
 
         given()
                 .contentType(ContentType.JSON)
@@ -128,6 +128,6 @@ public class ProfileTests {
                 .patch(baseUrl + ApiEndpoints.PROFILE)
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
-                .body("message", equalTo(unauthorizedMessage));
+                .body("message", equalTo(expectedMessage));
     }
 }

@@ -28,6 +28,8 @@ public class PostNoteTest {
         String description = info.getString("description");
         String category = info.getString("valid_category");
 
+        String expectedMessage = notesMessages.getString("note.patch.created");
+
         given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
@@ -36,7 +38,7 @@ public class PostNoteTest {
                 .post(baseUrl + ApiEndpoints.NOTES)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo(notesMessages.getString("note.patch.created")));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
@@ -46,6 +48,8 @@ public class PostNoteTest {
         String title = info.getString("title");
         String description = info.getString("description");
 
+        String expectedMessage = notesMessages.getString("note.patch.badrequest");
+
         given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
@@ -54,7 +58,7 @@ public class PostNoteTest {
                 .post(baseUrl + ApiEndpoints.NOTES)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", equalTo(notesMessages.getString("note.patch.badrequest")));
+                .body("message", equalTo(expectedMessage));
     }
 
     @Test
@@ -65,6 +69,8 @@ public class PostNoteTest {
         String description = info.getString("description");
         String category = info.getString("valid_category");
 
+        String expectedMessage = commonMessages.getString("unauthorized");
+
         given()
                 .contentType(ContentType.JSON)
                 .header("x-auth-token", token)
@@ -73,6 +79,6 @@ public class PostNoteTest {
                 .post(baseUrl + ApiEndpoints.NOTES)
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
-                .body("message", equalTo(commonMessages.getString("unauthorized")));
+                .body("message", equalTo(expectedMessage));
     }
 }
