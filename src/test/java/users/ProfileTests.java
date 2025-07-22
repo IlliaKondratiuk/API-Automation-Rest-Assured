@@ -21,7 +21,7 @@ public class ProfileTests {
     String baseUrl = common.getString("base.url");
 
     @Test
-    public void getProfileReturnsSuccess() {
+    public void getProfileReturns200() {
         String token = AuthHelper.generateToken();
 
         String expectedMessage = userMessages.getString("profile.successful");
@@ -37,7 +37,7 @@ public class ProfileTests {
     }
 
     @Test
-    public void patchProfileReturnsSuccess() {
+    public void patchProfileReturns200() {
         String token = AuthHelper.generateToken();
 
         String name = userInfo.getString("user.name");

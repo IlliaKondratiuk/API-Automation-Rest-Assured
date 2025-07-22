@@ -25,7 +25,7 @@ public class GetNotesTest {
     String baseUrl = common.getString("base.url");
 
     @Test
-    public void getNotesReturns200() {
+    public void validGetNotesReturns200() {
         String token = AuthHelper.generateToken();
 
         String expectedMessage = notesMessages.getString("note.get.success");

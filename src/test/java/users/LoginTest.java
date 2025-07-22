@@ -21,7 +21,7 @@ public class LoginTest {
     String baseUrl = common.getString("base.url");
 
     @Test
-    public void validLoginReturnsSuccess() {
+    public void validLoginReturns200() {
         String token = AuthHelper.generateToken();
 
         String email = credentials.getString("user.email");
