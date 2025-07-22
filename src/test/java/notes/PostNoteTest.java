@@ -62,7 +62,7 @@ public class PostNoteTest {
     }
 
     @Test
-    public void unauthorizedPostNoteReturns401() { //missing category
+    public void unauthorizedPostNoteReturns401() { //incorrect token
         String token = AuthHelper.generateToken() + "1";
 
         String title = info.getString("title");

@@ -76,13 +76,13 @@ public class ProfileTests {
 
     @Test
     public void getProfileUnauthorizedReturns401() {
-        String token = AuthHelper.generateToken();
+        String token = AuthHelper.generateToken() + 1; //incorrect token
 
         String expectedMessage = commonMessages.getString("unauthorized");
 
         given()
                 .contentType(ContentType.JSON)
-                .header("x-auth-token", token + "0") //making the token invalid
+                .header("x-auth-token", token)
         .when()
                 .get(baseUrl + ApiEndpoints.PROFILE)
         .then()
@@ -112,7 +112,7 @@ public class ProfileTests {
 
     @Test
     public void patchProfileUnauthorizedReturns401() {
-        String token = AuthHelper.generateToken();
+        String token = AuthHelper.generateToken() + 1; //incorrect token
 
         String name = userInfo.getString("user.name");
         String phone = userInfo.getString("user.phone");
@@ -122,7 +122,7 @@ public class ProfileTests {
 
         given()
                 .contentType(ContentType.JSON)
-                .header("x-auth-token", token + "0")
+                .header("x-auth-token", token)
                 .body(String.format("{\"name\":\"%s\", \"phone\":\"%s\", \"company\":\"%s\"}", name, phone, company))
         .when()
                 .patch(baseUrl + ApiEndpoints.PROFILE)

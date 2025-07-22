@@ -103,13 +103,13 @@ public class GetNotesTest {
 
     @Test
     public void getNotesUnauthorizedReturns401() {
-        String token = AuthHelper.generateToken();
+        String token = AuthHelper.generateToken() + 1;
 
         String expectedMessage = commonMessages.getString("unauthorized");
 
         given()
                 .contentType(ContentType.JSON)
-                .header("x-auth-token", token + "1")
+                .header("x-auth-token", token)
         .when()
                 .get(baseUrl + ApiEndpoints.NOTES)
         .then()
