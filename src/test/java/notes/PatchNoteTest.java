@@ -16,7 +16,6 @@ public class PatchNoteTest {
     ResourceBundle common = ResourceBundle.getBundle("common.common_info");
     ResourceBundle noteInfo = ResourceBundle.getBundle("note_info");
     ResourceBundle noteMessages = ResourceBundle.getBundle("messages.notes_messages");
-    ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
 
     String baseUrl = common.getString("base.url");
 
@@ -34,9 +33,9 @@ public class PatchNoteTest {
                 .header("x-auth-token", token)
                 .body(String.format("{\"id\":\"%s\", \"completed\":\"%s\"}",
                         id, completed))
-                .when()
+        .when()
                 .patch(baseUrl + ApiEndpoints.NOTES + "/" + id)
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo(expectedMessage));
     }
