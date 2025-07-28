@@ -25,14 +25,12 @@ public class DeleteNoteTest {
     String idToDelete;
 
     @BeforeTest
-    public void validPostNoteReturns200() {
+    public void createNoteToDelete() {
         String token = AuthHelper.generateToken();
 
         String title = info.getString("title");
         String description = info.getString("description");
         String category = info.getString("valid_category");
-
-        String expectedMessage = notesMessages.getString("note.patch.created");
 
         Response response = given()
              .contentType(ContentType.JSON)
@@ -42,8 +40,56 @@ public class DeleteNoteTest {
              .post(baseUrl + ApiEndpoints.NOTES);
 
         idToDelete = response.path("data.id");
-
-
     }
 
+    @Test
+    public void deleteValidNoteReturns200() {
+        String token = AuthHelper.generateToken();
+
+        String expectedMessage = notesMessages.getString("note.delete.success");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(String.format("{\"id\":\"%s\"}", idToDelete))
+        .when()
+                .delete(baseUrl + ApiEndpoints.NOTES + "/" + idToDelete)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("message", equalTo(expectedMessage));
+    }
+
+    @Test
+    public void invalidDeleteNoteReturns400() {
+        String token = AuthHelper.generateToken();
+
+        String expectedMessage = commonMessages.getString("badrequest.emptybody");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(" ") // empty ID
+        .when()
+                .delete(baseUrl + ApiEndpoints.NOTES + "/" + idToDelete)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(expectedMessage));
+    }
+
+    @Test
+    public void unauthorizedDeleteNoteReturns401() {
+        String token = AuthHelper.generateToken() + "1"; // invalid token
+
+        String expectedMessage = commonMessages.getString("unauthorized");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(String.format("{\"id\":\"%s\"}", idToDelete))
+                .when()
+                .delete(baseUrl + ApiEndpoints.NOTES + "/" + idToDelete)
+                .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(expectedMessage));
+    }
 }
