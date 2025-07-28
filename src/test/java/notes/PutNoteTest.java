@@ -45,7 +45,7 @@ public class PutNoteTest {
     }
 
     @Test
-    public void invalidPutNoteReturns400() { // missing id
+    public void invalidPutNoteReturns400() {
         String token = AuthHelper.generateToken();
 
         String id = noteInfo.getString("note.id");
