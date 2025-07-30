@@ -16,15 +16,37 @@ The project was created to practice REST API test automation, organize reusable 
 
 ## 📁 Project Structure
 
+```text
 src/
 ├── main/
 │   └── java/
-│       ├── helpers/         # API endpoints, token/auth helpers, test data
-│       └── models/          # POJOs for API responses
+│       ├── helpers/         # Token generation, endpoint constants, and test data
+│       │   ├── ApiEndpoints.java
+│       │   ├── AuthHelper.java
+│       │   └── InvalidTestData.java
+│       └── models/          # POJOs for deserializing API responses
+│           ├── Note.java
+│           └── GetNotesResponse.java
 ├── test/
 │   └── java/
-│       ├── notes/           # Tests for CRUD operations on notes
-│       └── users/           # Tests for user login and profile operations
+│       ├── notes/           # CRUD tests for notes
+│       │   ├── GetNotesTest.java
+│       │   ├── PostNoteTest.java
+│       │   ├── PatchNoteTest.java
+│       │   ├── PutNoteTest.java
+│       │   └── DeleteNoteTest.java
+│       └── users/           # User-related tests
+│           ├── LoginTest.java
+│           └── ProfileTests.java
+```
+
+### 📄 Folder Descriptions
+
+- `helpers/` – Contains utility classes for handling authentication, API route management, and invalid test input data
+- `models/` – Contains plain Java objects (POJOs) used to deserialize JSON responses into Java objects
+- `notes/` – Each class tests a specific HTTP operation (GET, POST, PUT, PATCH, DELETE) on the Notes resource. I did not overload the project with all possible operations as they were not different from each other and would not bring anything new in terms of learning/demonstation.
+- `users/` – Includes tests for login and profile-related endpoints
+
 
 ## 🚀 Running the Tests
 
@@ -40,10 +62,9 @@ To run all tests, execute:
 
 ### 🔐 Authentication
 
-Tests that require a valid user session use a generated token that is cached during runtime to avoid redundant login requests.  
-The token is generated using the `AuthHelper` class, which retrieves credentials from a `user_info.properties` file and sends a login request.
-
-Credentials and the base URL are loaded using Java’s `ResourceBundle`, and sensitive information is not hardcoded in the test logic.
+* Tests that require a valid user session use a generated token that is cached during runtime to avoid redundant login requests.  
+* The token is generated using the `AuthHelper` class, which retrieves credentials from a `user_info.properties` file and sends a login request.
+* Credentials and the base URL are loaded using Java’s `ResourceBundle`, and sensitive information is not hardcoded in the test logic.
 
 ---
 
@@ -52,7 +73,7 @@ Credentials and the base URL are loaded using Java’s `ResourceBundle`, and sen
 #### 🔹 Purpose
 
 This project was created to practice REST API test automation using Java and popular open-source tools.  
-It helps me explore clean test design, modular structure, and reusable components for real-world readiness.
+It helps me explore clean test design, modular structure, and reusable components for learning and demonstration purposes. 
 
 #### 🔹 Test Design Choices
 
