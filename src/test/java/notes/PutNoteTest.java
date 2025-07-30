@@ -20,7 +20,7 @@ public class PutNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void putNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -44,7 +44,7 @@ public class PutNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void invalidPutNoteReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -62,7 +62,7 @@ public class PutNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void unauthorizedPutNoteReturns401() { // incorrect token
         String token = AuthHelper.generateToken() + "1"; // deliberately invalid
 
@@ -85,6 +85,4 @@ public class PutNoteTest {
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
                 .body("message", equalTo(expectedMessage));
     }
-
-
 }

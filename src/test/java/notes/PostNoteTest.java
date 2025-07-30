@@ -20,7 +20,7 @@ public class PostNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void validPostNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -41,7 +41,7 @@ public class PostNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void invalidPostNoteReturns400() { //missing category
         String token = AuthHelper.generateToken();
 
@@ -61,7 +61,7 @@ public class PostNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void unauthorizedPostNoteReturns401() { //incorrect token
         String token = AuthHelper.generateToken() + "1";
 

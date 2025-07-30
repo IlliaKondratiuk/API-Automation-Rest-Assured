@@ -20,7 +20,7 @@ public class LoginTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void validLoginReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -39,7 +39,7 @@ public class LoginTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void loginWithoutCredentialsReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -56,7 +56,7 @@ public class LoginTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void loginWithInvalidCredentialsReturns401() {
         String token = AuthHelper.generateToken();
 

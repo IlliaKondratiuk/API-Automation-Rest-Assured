@@ -24,7 +24,7 @@ public class GetNotesTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void validGetNotesReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -40,7 +40,7 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getNotesHasCorrectFields() {
         String token = AuthHelper.generateToken();
 
@@ -66,7 +66,7 @@ public class GetNotesTest {
         }
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getNoteByIdReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -84,7 +84,7 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void invalidGetNoteByIdReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -101,7 +101,7 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getNotesUnauthorizedReturns401() {
         String token = AuthHelper.generateToken() + 1;
 

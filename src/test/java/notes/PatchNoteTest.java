@@ -19,7 +19,7 @@ public class PatchNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void patchNoteReturns200() {
         String token = AuthHelper.generateToken();
 

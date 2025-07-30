@@ -42,7 +42,7 @@ public class DeleteNoteTest {
         idToDelete = response.path("data.id");
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void deleteValidNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -59,7 +59,7 @@ public class DeleteNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void invalidDeleteNoteReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -76,7 +76,7 @@ public class DeleteNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void unauthorizedDeleteNoteReturns401() {
         String token = AuthHelper.generateToken() + "1"; // invalid token
 

@@ -20,7 +20,7 @@ public class ProfileTests {
 
     String baseUrl = common.getString("base.url");
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getProfileReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -36,7 +36,7 @@ public class ProfileTests {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void patchProfileReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -57,7 +57,7 @@ public class ProfileTests {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getProfileInvalidReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -74,7 +74,7 @@ public class ProfileTests {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void getProfileUnauthorizedReturns401() {
         String token = AuthHelper.generateToken() + 1; //incorrect token
 
@@ -90,7 +90,7 @@ public class ProfileTests {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void patchProfileMissingNameReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -110,7 +110,7 @@ public class ProfileTests {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test
+    @Test(groups = {"critical", "smoke"})
     public void patchProfileUnauthorizedReturns401() {
         String token = AuthHelper.generateToken() + 1; //incorrect token
 
