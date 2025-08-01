@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="ParallelSuite" parallel="classes" thread-count="7">
+    <listeners>
+        <listener class-name="helpers.test.TestListener" />
+    </listeners>
+
     <test name="ParallelTests">
         <classes>
             <class name="notes.DeleteNoteTest" />
