@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="ParallelSuite" parallel="classes" thread-count="7">
+    <test name="ParallelTests">
+        <classes>
+            <class name="notes.DeleteNoteTest" />
+            <class name="notes.GetNotesTest" />
+            <class name="notes.PatchNoteTest" />
+            <class name="notes.PostNoteTest" />
+            <class name="notes.PutNoteTest" />
+            <class name="users.LoginTest" />
+            <class name="users.ProfileTests" />
+        </classes>
+    </test>
+</suite>
