@@ -8,9 +8,11 @@ The project was created to practice REST API test automation, organize reusable 
 ## 🛠 Technologies Used
 
 - **Java** – JDK 23.0.2 (may work with JDK 11+, not verified)
+- **Maven** – for dependency management and building
 - **RestAssured** – for HTTP requests and response validation
-- **TestNG** – for test execution
-- **Maven** – for dependency management and build
+- **TestNG** – for test execution(including parallel execution)
+- **SLF4J** - test logging
+- **Allure** - reporting
 
 ---
 
