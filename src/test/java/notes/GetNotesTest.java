@@ -2,11 +2,13 @@ package notes;
 
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
+import helpers.test.TestListener;
 import io.restassured.http.ContentType;
 import models.GetNotesResponse;
 import models.Note;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.ResourceBundle;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@Listeners(TestListener.class)
 public class GetNotesTest {
 
     ResourceBundle common = ResourceBundle.getBundle("common.common_info");
