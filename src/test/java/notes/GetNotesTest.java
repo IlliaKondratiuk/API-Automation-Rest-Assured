@@ -3,10 +3,7 @@ package notes;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import models.GetNotesResponse;
 import models.Note;
@@ -34,7 +31,8 @@ public class GetNotesTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid get all existing notes", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void validGetNotesReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -50,7 +48,8 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Checking all fields of a valid note are correct", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void getNotesHasCorrectFields() {
         String token = AuthHelper.generateToken();
 
@@ -76,7 +75,8 @@ public class GetNotesTest {
         }
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid get an existing note by ID", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void getNoteByIdReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -94,7 +94,8 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid get existing note with empty body", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void invalidGetNoteByIdReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -111,7 +112,8 @@ public class GetNotesTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid get notes with an invalid token", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void getNotesUnauthorizedReturns401() {
         String token = AuthHelper.generateToken() + 1;
 
