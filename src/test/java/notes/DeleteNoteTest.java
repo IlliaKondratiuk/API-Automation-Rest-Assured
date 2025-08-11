@@ -3,10 +3,7 @@ package notes;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -52,7 +49,8 @@ public class DeleteNoteTest {
         idToDelete = response.path("data.id");
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Delete a valid existing note", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void deleteValidNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -69,7 +67,8 @@ public class DeleteNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid delete request with empty json body", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void invalidDeleteNoteReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -86,7 +85,8 @@ public class DeleteNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid delete request with an invalid token", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void unauthorizedDeleteNoteReturns401() {
         String token = AuthHelper.generateToken() + "1"; // invalid token
 
