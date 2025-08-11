@@ -4,6 +4,10 @@ import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.InvalidTestData;
 import helpers.test.TestListener;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
@@ -14,6 +18,9 @@ import java.util.ResourceBundle;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@Epic("Notes API")
+@Feature("POST /login endpoint")
+@Owner("Illia")
 @Listeners(TestListener.class)
 public class LoginTest {
 
