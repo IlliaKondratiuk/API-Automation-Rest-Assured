@@ -3,10 +3,7 @@ package notes;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
@@ -30,7 +27,8 @@ public class PutNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid full update of an existing note", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void putNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -54,7 +52,8 @@ public class PutNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid full update of an existing note with empty body", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void invalidPutNoteReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -72,7 +71,8 @@ public class PutNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid full update of an existing note with invalid token", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void unauthorizedPutNoteReturns401() { // incorrect token
         String token = AuthHelper.generateToken() + "1"; // deliberately invalid
 
