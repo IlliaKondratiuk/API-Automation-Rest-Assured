@@ -3,10 +3,7 @@ package notes;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
@@ -30,7 +27,8 @@ public class PostNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid creation of a new note", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void validPostNoteReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -51,7 +49,8 @@ public class PostNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid note creation with missing category", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void invalidPostNoteReturns400() { //missing category
         String token = AuthHelper.generateToken();
 
@@ -71,7 +70,8 @@ public class PostNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid creation of a note with an invalid token", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void unauthorizedPostNoteReturns401() { //incorrect token
         String token = AuthHelper.generateToken() + "1";
 
