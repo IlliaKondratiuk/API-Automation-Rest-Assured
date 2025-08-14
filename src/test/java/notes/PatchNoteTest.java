@@ -3,10 +3,7 @@ package notes;
 import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
@@ -29,7 +26,8 @@ public class PatchNoteTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid partial update of a note", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void patchNoteReturns200() {
         String token = AuthHelper.generateToken();
 
