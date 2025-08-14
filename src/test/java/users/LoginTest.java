@@ -4,10 +4,7 @@ import helpers.ApiEndpoints;
 import helpers.AuthHelper;
 import helpers.InvalidTestData;
 import helpers.test.TestListener;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
@@ -30,7 +27,8 @@ public class LoginTest {
 
     String baseUrl = common.getString("base.url");
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Valid login", groups = {"critical", "smoke"})
+    @Severity(SeverityLevel.CRITICAL)
     public void validLoginReturns200() {
         String token = AuthHelper.generateToken();
 
@@ -49,7 +47,8 @@ public class LoginTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Invalid login without email", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithoutCredentialsReturns400() {
         String token = AuthHelper.generateToken();
 
@@ -66,7 +65,8 @@ public class LoginTest {
                 .body("message", equalTo(expectedMessage));
     }
 
-    @Test(groups = {"critical", "smoke"})
+    @Test(description = "Unauthorized login with incorrect credentials", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithInvalidCredentialsReturns401() {
         String token = AuthHelper.generateToken();
 
