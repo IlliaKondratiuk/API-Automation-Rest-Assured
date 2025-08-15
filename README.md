@@ -56,11 +56,16 @@ src/
 
 * JDK 11 or higher (developed with JDK 23.0.2)
 * Maven
+* Allure CLI
 * Internet connection (tests run against a live public API)
 
 To run all tests, execute:
 
 ```mvn clean test```
+
+To see the generated Allure reports, execute:
+
+```allure serve```
 
 ### 🔐 Authentication
 
