@@ -23,6 +23,7 @@ public class PatchNoteTest {
     ResourceBundle common = ResourceBundle.getBundle("common.common_info");
     ResourceBundle noteInfo = ResourceBundle.getBundle("note_info");
     ResourceBundle noteMessages = ResourceBundle.getBundle("messages.notes_messages");
+    ResourceBundle commonMessages = ResourceBundle.getBundle("messages.common_messages");
 
     String baseUrl = common.getString("base.url");
 
@@ -48,4 +49,45 @@ public class PatchNoteTest {
                 .body("message", equalTo(expectedMessage));
     }
 
+    @Test(description = "Invalid patch existing note with empty body", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
+    public void invalidGetNoteByIdReturns400() {
+        String token = AuthHelper.generateToken();
+
+        String id = noteInfo.getString("note.id");
+
+        String expectedMessage = commonMessages.getString("badrequest.emptybody");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(" ")
+        .when()
+                .patch(baseUrl + ApiEndpoints.NOTES + "/" + id)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo(expectedMessage));
+    }
+
+    @Test(description = "Invalid patch an existing note with an invalid token", groups = {"normal", "smoke"})
+    @Severity(SeverityLevel.NORMAL)
+    public void getNotesUnauthorizedReturns401() {
+        String token = AuthHelper.generateToken() + 1;
+
+        String id = noteInfo.getString("note.id");
+        String completed = noteInfo.getString("note.completed.true");
+
+        String expectedMessage = commonMessages.getString("unauthorized");
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token", token)
+                .body(String.format("{\"id\":\"%s\", \"completed\":\"%s\"}",
+                        id, completed))
+        .when()
+                .patch(baseUrl + ApiEndpoints.NOTES + "/" + id)
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .body("message", equalTo(expectedMessage));
+    }
 }
